@@ -69,6 +69,7 @@ public class FFmpegProcessRunner : IFFmpegRunner
                                                       CancellationToken ct = default)
     {
         using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+
         if (options.DefaultTimeout > TimeSpan.Zero)
             cts.CancelAfter(options.DefaultTimeout);
 
@@ -147,10 +148,6 @@ public class FFmpegProcessRunner : IFFmpegRunner
                     options.Logger?.LogTrace("[ffmpeg stdout] {Line}", line);
                 }
             }, ct);
-
-            //await Task.WhenAll(stdOutReader, stdErrReader).ConfigureAwait(false);
-
-            //await process.WaitForExitAsync(ct).ConfigureAwait(false);
 
             await Task.WhenAll(process.WaitForExitAsync(cts.Token), stdErrReader, stdOutReader).ConfigureAwait(false);
 

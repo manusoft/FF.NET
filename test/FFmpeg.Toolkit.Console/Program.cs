@@ -6,7 +6,7 @@ Console.WriteLine("Hello, World!");
 var input = @"C:\Users\manua\Videos\Anu.mp4";
 var output = @"C:\downloads\Output_Anu.mp4";
 
-var progress = new Progress<FFmpegProgress>(p =>
+IProgress<FFmpegProgress>(p =>
 {
     Console.WriteLine($"Frame: {p.Frame}  Time: {p.Time}  Speed: {p.Speed}x");
 });
